@@ -1,10 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React, {useState} from "react";
+import {Routes, Route} from 'react-router-dom';
+import Home from "./Components/Home"
 function App() {
-  return (
-   <>
-   </>
+ 
+  return(
+    <>
+    <Routes>
+      <Route path="/" element={<Home/>}/>
+    </Routes>
+    </>
   )
 }
 
