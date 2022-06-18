@@ -8,6 +8,7 @@ import UAuth from "@uauth/js";
 import collectionAbi from "./AbiFolder/collection.json";
 import marketplaceAbi from "./AbiFolder/Marketplace.json";
 import { ethers } from "ethers";
+import CollectionView from "./Components/CollectionView";
 
 const { ethereum } = window;
 // export const signer = () => {
@@ -31,7 +32,7 @@ function App() {
     setAccount(accounts[0]);
     setConnect(false);
      const provider = new ethers.providers.Web3Provider(ethereum);
-     console.log(await provider.getCode(collectionaddress))
+    
      const signer = await provider.getSigner();
     loadContract(signer);
   };
@@ -109,6 +110,7 @@ function App() {
           }
         />
         <Route path="/create" element={<Create collection={collection} />} />
+        <Route path="/collection/:address" element={<CollectionView/>}/>
       </Routes>
     </div>
   );

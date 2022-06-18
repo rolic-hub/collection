@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 import { Row, Form, Button } from "react-bootstrap";
 import { create as ipfsHttpClient } from "ipfs-http-client";
-//0x562600264a53899B9a9E681336b319cf4af5EE1d
 
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 

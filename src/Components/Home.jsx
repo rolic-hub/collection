@@ -1,32 +1,30 @@
-import { ethers } from 'ethers';
-import React, { useState, useEffect } from 'react'
-import {Card, Row, Col} from "react-bootstrap"
-import {Link} from 'react-router-dom'
+import { ethers } from "ethers";
+import React, { useState, useEffect } from "react";
+import { Card, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 // import nftAbi from '../AbiFolder/NFTCONTRACT.json';
 // import {signer} from '../App';
 
-const Home = ({ collection, account, marketplace }) => {
-      const [result, setResult] = useState([]);
-
+const Home = (props) => {
+  const [result, setResult] = useState([]);
+  const { collection, account, marketplace } = props;
+  var data = [];
   const getAllCollection = async () => {
-     const collectionCount = await collection.noOfCollections();
-     const data = [];
-    for (let i = 0; i >= collectionCount; i++) {
-      const collectionaddress = await collection.nftCollection(i);
-     const items = collection.addressTostruct(collectionaddress);
-     data.push({
-      name:items.name,
-      symbol:items.symbol
-     })
+    const collectionCount = await collection?.noOfCollections();
+    for (let i = 0; i < collectionCount; i++) {
+      const Nftaddress = await collection.nftCollection(i);
+      const items = await collection.addressTostruct(Nftaddress);
+      data.push({
+        name: items._name,
+        symbol: items._symbol,
+        address: Nftaddress,
+      });
     }
     setResult(data);
   };
   useEffect(() => {
-    if (account !== "") {
-      getAllCollection()
-    }
-    
-  }, [account]);
+    getAllCollection();
+  });
 
   return (
     <div className="flex justify-center">
@@ -36,14 +34,14 @@ const Home = ({ collection, account, marketplace }) => {
             {result.map((item, idx) => (
               <Col key={idx} className="overflow-hidden">
                 <Card>
-                  <Link to={`/nft//`}>
+                  <Link to={`/collection/${item.address}`}>
                     {/* <Card.Img variant="top" src={item.image} /> */}
                     <Card.Body color="secondary">
                       <Card.Title>{item.name}</Card.Title>
-                      <Card.Text>{item.symbol}</Card.Text>
+                      <Card.Text>{item.symbol} <br/> {item.address}</Card.Text>
+
                     </Card.Body>
                   </Link>
-                 
                 </Card>
               </Col>
             ))}
@@ -58,4 +56,4 @@ const Home = ({ collection, account, marketplace }) => {
   );
 };
 
-export default Home
+export default Home;
