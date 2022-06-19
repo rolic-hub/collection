@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import React, { useState, useEffect } from "react";
-import { Card, Row, Col } from "react-bootstrap";
+import { Card, Row, Col, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 // import nftAbi from '../AbiFolder/NFTCONTRACT.json';
 // import {signer} from '../App';
@@ -42,6 +42,9 @@ const Home = (props) => {
 
                     </Card.Body>
                   </Link>
+                  <Button>
+                    Add NFT
+                  </Button>
                 </Card>
               </Col>
             ))}
@@ -52,6 +55,7 @@ const Home = (props) => {
           <h2>No listed assets</h2>
         </main>
       )}
+      
     </div>
   );
 };

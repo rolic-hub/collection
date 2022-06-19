@@ -110,7 +110,7 @@ function App() {
           }
         />
         <Route path="/create" element={<Create collection={collection} />} />
-        <Route path="/collection/:address" element={<CollectionView/>}/>
+        <Route path="/collection/:address" element={<CollectionView collection={collection} account={account}/>}/>
       </Routes>
     </div>
   );
