@@ -1,6 +1,86 @@
-.collection{
-    margin-right: 50px;
-    margin-left: 50px;
-    margin-top: 25px;
+.collection {
+  margin-right: 50px;
+  margin-left: 50px;
+  margin-top: 25px;
+}
+.contract_profile {
+  border: 1px solid #868e96;
+  border-radius: 10px;
+  height: 20rem;
+  width: 65rem;
+  margin-left: 50px;
 }
 
+.trait {
+  margin-left: 30px;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+.traittext {
+  margin-top: 10px;
+  margin-right: -20px;
+}
+.collection-display {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  border: 1px solid #868e96;
+  border-radius: 10px;
+  padding: 3rem;
+}
+.nft {
+  width: 200px;
+  height: 200px;
+  cursor: pointer;
+  object-fit: contain;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 32px 0px 32px 0px;
+  font-weight: bold;
+}
+.nft-cont {
+ margin: 4em;
+  display: flex;
+  align-self: center;
+  border-radius: 20px;
+  
+}
+.img-container {
+  height: 50vh;
+  text-align: center;
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.nft-details {
+  color: white;
+  background-color: rgb(33, 67, 107);
+  padding: 1em 2em;
+  flex: 2;
+  margin-right: 6rem;
+}
+
+.nft-table {
+  width: 100%;
+  font-weight: bold;
+  color: white;
+}
+.nft-img {
+  width: auto;
+  margin-left: -100px;
+  height: 100%;
+  min-width: 40vw;
+  object-fit: contain;
+}
+.background {
+background: rgb(255,255,255);
+background: radial-gradient(circle, rgba(255,255,255,0.3958625686602766) 0%, rgba(225,15,13,1) 100%);
+justify-content: center;
+align-items: center;
+}

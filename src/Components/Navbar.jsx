@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { Navbar, Nav, Button, Container } from "react-bootstrap";
-import React, { useState } from "react";
-
+import React from "react";
 import WalletModal from "./walletModal";
 //ckey_03ca034ffa1d4a53b6e223aa9a5
 

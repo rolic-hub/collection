@@ -1,13 +1,12 @@
-import { ethers } from "ethers";
+
 import React, { useState, useEffect } from "react";
 import { Card, Row, Col, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-// import nftAbi from '../AbiFolder/NFTCONTRACT.json';
-// import {signer} from '../App';
+
 
 const Home = (props) => {
   const [result, setResult] = useState([]);
-  const { collection, account, marketplace } = props;
+  const { collection, account } = props;
   var data = [];
   const getAllCollection = async () => {
     const collectionCount = await collection?.noOfCollections();
@@ -42,9 +41,6 @@ const Home = (props) => {
 
                     </Card.Body>
                   </Link>
-                  <Button>
-                    Add NFT
-                  </Button>
                 </Card>
               </Col>
             ))}

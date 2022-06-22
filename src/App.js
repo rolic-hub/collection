@@ -9,13 +9,10 @@ import collectionAbi from "./AbiFolder/collection.json";
 import marketplaceAbi from "./AbiFolder/Marketplace.json";
 import { ethers } from "ethers";
 import CollectionView from "./Components/CollectionView";
+import NftPage from "./Components/nftPage";
 
 const { ethereum } = window;
-// export const signer = () => {
-//   const provider = new ethers.providers.web3Provider(ethereum);
-//   const signer = provider.getSigner();
-//   return signer;
-// };
+
 
 function App() {
   const [connect, setConnect] = useState(true);
@@ -23,6 +20,7 @@ function App() {
   const marketplaceAddress = "0xaD12b51bDA5E41B7391CD66eeDD668B4aF2e2b99";
   const [account, setAccount] = useState("");
   const [collection, setCollection] = useState();
+  const [metamaskSigner, setMaskSigner] = useState();
   const [marketplace, setMarketPlace] = useState({});
 
   const web3handler = async () => {
@@ -31,9 +29,10 @@ function App() {
     });
     setAccount(accounts[0]);
     setConnect(false);
-     const provider = new ethers.providers.Web3Provider(ethereum);
-    
-     const signer = await provider.getSigner();
+    const provider = new ethers.providers.Web3Provider(ethereum);
+
+    const signer = await provider.getSigner();
+    setMaskSigner(signer);
     loadContract(signer);
   };
 
@@ -50,7 +49,7 @@ function App() {
     const accounts = Wsigner.getAddress();
     setAccount(accounts);
     setConnect(false);
-    
+
     loadContract(Wsigner);
   };
 
@@ -87,7 +86,6 @@ function App() {
     setMarketPlace(getMarketcontract);
   };
 
-  
   return (
     <div className="App">
       <Navigation
@@ -110,7 +108,17 @@ function App() {
           }
         />
         <Route path="/create" element={<Create collection={collection} />} />
-        <Route path="/collection/:address" element={<CollectionView collection={collection} account={account}/>}/>
+        <Route
+          path="/collection/:address"
+          element={
+            <CollectionView
+              collection={collection}
+              account={account}
+              metamaskSigner={metamaskSigner}
+            />
+          }
+        />
+        <Route path="/nft/:address/:tokenId" element={<NftPage />} />
       </Routes>
     </div>
   );
