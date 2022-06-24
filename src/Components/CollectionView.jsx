@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams} from "react-router-dom";
 import { Card } from "react-bootstrap";
 import "./style.css";
 import CreateNft from "./createNft";
-import {Link} from 'react-router-dom'
+import { MdOutlineArrowBackIosNew } from "react-icons/md";
 
 const CollectionView = (props) => {
   const { collection, account, metamaskSigner } = props;
   const [result, setResult] = useState([]);
   const [nftData, setNftdata] = useState();
+  const [imageBox, SetImage] = useState([]);
   const [tokenId, setTokenId] = useState(null);
-  const [image, setImage] = useState("")
+  
+
   const { address } = useParams();
   const blockchain_id = 80001;
+
+  let imageArray = [];
+  let token_id = [];
 
   const getData = async () => {
     const collectionData = await collection.addressTostruct(address);
@@ -29,78 +34,124 @@ const CollectionView = (props) => {
     result.forEach((element) => {
       const id = element.token_id;
       setTokenId(id);
-      nftPreview(id);
+      token_id.push(id);
+      console.log(token_id);
     });
-
+    nftPreview();
   };
 
-  const nftPreview = async (id) => {
-     const response = await fetch(`https://api.covalenthq.com/v1/${blockchain_id}/tokens/${address}/nft_metadata/${id}/?quote-currency=USD&format=JSON&key=ckey_03ca034ffa1d4a53b6e223aa9a5`)
-     const data = await response.json();
-     
-     setImage(data.data.items[0].nft_data[0].external_data.image_256);
-  }
+  const nftPreview = async () => {
+    for (let i = 0; i < token_id.length; i++) {
+      const id = token_id[i];
+      const response = await fetch(
+        `https://api.covalenthq.com/v1/${blockchain_id}/tokens/${address}/nft_metadata/${id}/?quote-currency=USD&format=JSON&key=ckey_03ca034ffa1d4a53b6e223aa9a5`
+      );
+      const data = await response.json();
+      const result = data.data.items[0].nft_data[0].external_data.image_256;
+      console.log(result);
+      imageArray.push(result);
+      
+    }
+    SetImage(imageArray);
+    console.log(imageArray);
+  };
   useEffect(() => {
     makeRequest();
+
     if (account !== "") {
       getData();
     }
   }, []);
   return (
-    <div className="collection">
-      <div className="dashboard">
-        <h1>{result._name} Dashboard</h1>
-      </div>
+    <div className="collection-background">
+      <br />
 
-      <Card className="contract_profile">
-        <Card.Body
-          style={{
-            display: "flex",
-            flexDirection: "row",
-          }}
-        >
-          <img
-            src="https://t4.ftcdn.net/jpg/02/51/95/53/360_F_251955356_FAQH0U1y1TZw3ZcdPGybwUkH90a3VAhb.jpg"
-            alt="CollectionImage"
-            height="250px"
-            width="300px"
-          />
+      <div className="collection">
+        <div>
+          <h1 style={{ margin: "25px" }}>{result._name} Dashboard</h1>
+        </div>
 
-          <div style={{ marginLeft: "150px", marginTop: "20px" }}>
-            <p>Collection address</p>
-            <strong>{address}</strong>
-            <div
-              style={{
-                display: "flex",
-              }}
-            >
-              <strong>
-                {" "}
-                Collection Name <br /> {result._name}
+        <Card className="contract_profile">
+          <Card.Body
+            style={{
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
+            <img
+              src="https://t4.ftcdn.net/jpg/02/51/95/53/360_F_251955356_FAQH0U1y1TZw3ZcdPGybwUkH90a3VAhb.jpg"
+              alt="CollectionImage"
+              height="250px"
+              width="300px"
+              style={{ marginLeft: "10px" }}
+            />
+
+            <div style={{ marginLeft: "150px", marginTop: "50px" }}>
+              <strong style={{ color: "white" }}>Collection address</strong>
+              <br />
+              <strong style={{ fontSize: "20px" }}>
+                <a
+                  href={`https://mumbai.polygonscan.com/address/${address}`}
+                  style={{
+                    textDecoration: "none",
+                    color: "yellow",
+                  }}
+                >
+                  {address}
+                </a>{" "}
               </strong>
-              <strong>
-                {" "}
-                Collection Symbol <br /> {result._symbol}
-              </strong>
-            </div>
-          </div>
-        </Card.Body>
-      </Card>
-      <CreateNft address={address} metamaskSigner={metamaskSigner} />
-      <div style={{ marginTop: "10px" }}>
-        <Card className="collection-display">
-          <Card.Header className="text-center">
-            <strong>NFT Preview</strong>
-          </Card.Header>
-          <Card.Body>
-            <div className="nft">
-              <Link to={`/nft/${address}/${tokenId}`}>
-               <img src={image} alt={`Nft#${tokenId}`} />
-              </Link>
-             
+              <br />
+              <br />
+              <div
+                style={{
+                  display: "flex",
+                }}
+              >
+                <strong style={{ color: "white", marginRight: "50px" }}>
+                  {" "}
+                  Collection Name <br />{" "}
+                  <strong style={{ marginLeft: "30px" }}>{result._name}</strong>
+                </strong>
+
+                <strong style={{ color: "white" }}>
+                  {" "}
+                  Collection Symbol <br />{" "}
+                  <strong style={{ marginLeft: "50px" }}>
+                    {result._symbol}
+                  </strong>
+                </strong>
+              </div>
             </div>
           </Card.Body>
         </Card>
+        <a
+          style={{
+            display: "flex",
+            marginLeft: "60px",
+            textDecoration: "none",
+            marginTop: "20px",
+          }}
+          href={`/collection/${address}`}
+        >
+          <p style={{ fontSize: "25px" }}>
+            {" "}
+            <MdOutlineArrowBackIosNew color="white" size={"30px"} /> Back
+          </p>
+        </a>
+        <CreateNft address={address} metamaskSigner={metamaskSigner} />
+        <div style={{ marginTop: "50px" }}>
+          <h4 style={{ marginLeft: "50px" }}> NFT PREVIEW </h4>
+          <div className="collection-display">
+            {imageBox.map((image, i) => (
+              <div className="nft">
+                <a href={`/nft/${address}/${tokenId}`}>
+                  <img src={image} alt={`Nft#${tokenId}`} />
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+        <br />
       </div>
     </div>
   );

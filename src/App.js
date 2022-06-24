@@ -118,7 +118,12 @@ function App() {
             />
           }
         />
-        <Route path="/nft/:address/:tokenId" element={<NftPage />} />
+        <Route
+          path="/nft/:address/:tokenId"
+          element={
+            <NftPage metamaskSigner={metamaskSigner} account={account} />
+          }
+        />
       </Routes>
     </div>
   );

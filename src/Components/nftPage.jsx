@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { ethers } from "ethers";
 import { Table, Button } from "react-bootstrap";
 import moment from "moment";
 import { BsPersonCircle } from "react-icons/bs";
 import { MdOutlineArrowBackIosNew } from "react-icons/md";
+import nftAbi from "../AbiFolder/NFTCONTRACT.json";
 
-const NftPage = () => {
+const NftPage = (props) => {
+  const { metamaskSigner, account } = props;
   const { address, tokenId } = useParams();
   const [nftdata, setNftdata] = useState();
   const [transactions, setTransactions] = useState([]);
@@ -19,6 +22,13 @@ const NftPage = () => {
     console.log(data.data.items[0].nft_transactions);
     setTransactions(data.data.items[0].nft_transactions);
   };
+  // const transferNft = async () => {
+  //   try {
+  //     const contract = new ethers.Contract(address, nftAbi.abi, metamaskSigner);
+  //     await (await contract.setApprovalForAll(address, true)).wait();
+  //     await await contract.safeTransferFrom(address, account, tokenId);
+  //   } catch (error) {}
+  // };
 
   const nftProfile = async () => {
     const response = await fetch(
@@ -47,17 +57,19 @@ const NftPage = () => {
       </a>
 
       <div className="nft-cont">
-        <div className="img-container">
-          <img
-            // onError={(event) => {
-            //   event.target.classList.add("error-image");
-            //   event.target.classList.remove("nft-img");
-            // }}
-            alt={`Nft-#${tokenId}`}
-            className="nft-img"
-            src={nftdata?.external_data?.image}
-          ></img>
-          <Button style={{maginTop:"10px", marginLeft:"10px"}}>
+        <div style={{ marginLeft: "5em" }}>
+          <div className="img-container">
+            <img
+              // onError={(event) => {
+              //   event.target.classList.add("error-image");
+              //   event.target.classList.remove("nft-img");
+              // }}
+              alt={`Nft-#${tokenId}`}
+              className="nft-img"
+              src={nftdata?.external_data?.image}
+            />
+          </div>
+          <Button style={{ maginTop: "20px", marginLeft: "4.5em" }}>
             {nftdata?.token_quote_rate_eth <= 0 ||
             nftdata?.token_quote_rate_eth === null ? (
               <strong>Purchase for Free</strong>
@@ -66,6 +78,7 @@ const NftPage = () => {
             )}
           </Button>
         </div>
+
         <div className="nft-details">
           <h1>{nftdata?.external_data?.name}</h1>
           <h2>Token ID : {nftdata?.token_id}</h2>
@@ -80,7 +93,11 @@ const NftPage = () => {
               href={`https://mumbai.polygonscan.com/address/${nftdata?.original_owner}`}
               target="_blank"
               rel="noreferrer"
-              style={{ marginLeft: "20px" }}
+              style={{
+                marginLeft: "20px",
+                textDecoration: "none",
+                color: "yellow",
+              }}
             >
               {nftdata?.original_owner}
             </a>
@@ -92,7 +109,11 @@ const NftPage = () => {
               href={`https://mumbai.polygonscan.com/address/${nftdata?.owner}`}
               target="_blank"
               rel="noreferrer"
-              style={{ marginLeft: "20px" }}
+              style={{
+                marginLeft: "20px",
+                textDecoration: "none",
+                color: "yellow",
+              }}
             >
               {nftdata?.owner}
             </a>
@@ -148,6 +169,7 @@ const NftPage = () => {
                     href={`https://mumbai.polygonscan.com/tx/${item?.tx_hash}`}
                     target="_blank"
                     rel="noreferrer"
+                    style={{ textDecoration: "none", color: "yellow" }}
                   >
                     {(item?.tx_hash).slice(0, 10) + "...."}
                   </a>
@@ -163,13 +185,20 @@ const NftPage = () => {
                 </td>
                 <td>{moment(item?.block_signed_at).fromNow()}</td>
                 <td>
-                  <p>{item?.successful ? <p>success</p> : <p>failed</p>}</p>
+                  <p>
+                    {item?.successful ? (
+                      <strong style={{ color: "green" }}>success</strong>
+                    ) : (
+                      <strong style={{ color: "red" }}>failed</strong>
+                    )}
+                  </p>
                 </td>
                 <td>
                   <a
                     href={`https://mumbai.polygonscan.com/address/${item?.from_address}`}
                     target="_blank"
                     rel="noreferrer"
+                    style={{ textDecoration: "none", color: "yellow" }}
                   >
                     {(item?.from_address).slice(0, 10) + "...."}
                   </a>
@@ -179,6 +208,7 @@ const NftPage = () => {
                     href={`https://mumbai.polygonscan.com/address/${item?.to_address}`}
                     target="_blank"
                     rel="noreferrer"
+                    style={{ textDecoration: "none", color: "yellow" }}
                   >
                     {(item?.to_address).slice(0, 10) + "...."}
                   </a>

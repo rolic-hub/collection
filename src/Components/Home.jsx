@@ -1,8 +1,6 @@
-
 import React, { useState, useEffect } from "react";
 import { Card, Row, Col, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
 
 const Home = (props) => {
   const [result, setResult] = useState([]);
@@ -37,8 +35,9 @@ const Home = (props) => {
                     {/* <Card.Img variant="top" src={item.image} /> */}
                     <Card.Body color="secondary">
                       <Card.Title>{item.name}</Card.Title>
-                      <Card.Text>{item.symbol} <br/> {item.address}</Card.Text>
-
+                      <Card.Text>
+                        {item.symbol} <br /> {item.address}
+                      </Card.Text>
                     </Card.Body>
                   </Link>
                 </Card>
@@ -51,7 +50,6 @@ const Home = (props) => {
           <h2>No listed assets</h2>
         </main>
       )}
-      
     </div>
   );
 };

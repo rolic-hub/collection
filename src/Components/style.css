@@ -1,7 +1,18 @@
+* {
+  text-decoration-color: white;
+}
+
 .collection {
   margin-right: 50px;
   margin-left: 50px;
-  margin-top: 25px;
+}
+.collection-background {
+  background: rgb(255, 255, 255);
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.3958625686602766) 0%,
+    rgba(225, 15, 13, 1) 100%
+  );
 }
 .contract_profile {
   border: 1px solid #868e96;
@@ -9,6 +20,12 @@
   height: 20rem;
   width: 65rem;
   margin-left: 50px;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    317deg,
+    rgba(0, 0, 0, 1) 100%,
+    rgba(255, 255, 255, 1) 100%
+  );
 }
 
 .trait {
@@ -26,9 +43,18 @@
   justify-content: space-between;
   flex-wrap: wrap;
   align-items: center;
-  border: 1px solid #868e96;
+  border: 3px solid hsl(0, 0%, 100%);
   border-radius: 10px;
   padding: 3rem;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    317deg,
+    rgba(0, 0, 0, 1) 100%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  margin-bottom: 50px;
+  width: 65rem;
+  margin-left: 50px;
 }
 .nft {
   width: 200px;
@@ -43,19 +69,19 @@
   font-weight: bold;
 }
 .nft-cont {
- margin: 4em;
+  margin: 4em;
   display: flex;
   align-self: center;
   border-radius: 20px;
-  
 }
 .img-container {
-  height: 50vh;
+  height: 60vh;
   text-align: center;
   flex: 2;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 10px;
   flex-direction: column;
 }
 .nft-details {
@@ -79,8 +105,22 @@
   object-fit: contain;
 }
 .background {
-background: rgb(255,255,255);
-background: radial-gradient(circle, rgba(255,255,255,0.3958625686602766) 0%, rgba(225,15,13,1) 100%);
-justify-content: center;
-align-items: center;
+  background: rgb(255, 255, 255);
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.3958625686602766) 0%,
+    rgba(225, 15, 13, 1) 100%
+  );
+  justify-content: center;
+  align-items: center;
+}
+.collection-display {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  border: 1px solid #868e96;
+  border-radius: 10px;
+  padding: 3rem;
 }

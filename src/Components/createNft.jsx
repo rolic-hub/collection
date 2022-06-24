@@ -107,7 +107,10 @@ const CreateNft = (props) => {
         flush
       >
         <Accordion.Item eventKey="0">
-          <Accordion.Header>Create and List Nft</Accordion.Header>
+          <Accordion.Header>
+            {" "}
+            <strong style={{ textAlign: "center", marginLeft:"400px" }}> Create and List Nft</strong>
+          </Accordion.Header>
           <Accordion.Body>
             <div className="row">
               <div className="content mx-auto">
