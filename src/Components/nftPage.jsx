@@ -16,7 +16,7 @@ const NftPage = (props) => {
 
   const nftTransactions = async () => {
     const response = await fetch(
-      `https://api.covalenthq.com/v1/${blockchain_id}/tokens/${address}/nft_transactions/${tokenId}/?quote-currency=USD&format=JSON&key=ckey_03ca034ffa1d4a53b6e223aa9a5`
+      `https://api.covalenthq.com/v1/${blockchain_id}/tokens/${address}/nft_transactions/${tokenId}/?quote-currency=USD&format=JSON&key=${process.env.REACT_APP_COVALENT_APIKEY}`
     );
     const data = await response.json();
     console.log(data.data.items[0].nft_transactions);
@@ -32,7 +32,7 @@ const NftPage = (props) => {
 
   const nftProfile = async () => {
     const response = await fetch(
-      `https://api.covalenthq.com/v1/${blockchain_id}/tokens/${address}/nft_metadata/${tokenId}/?quote-currency=USD&format=JSON&key=ckey_03ca034ffa1d4a53b6e223aa9a5`
+      `https://api.covalenthq.com/v1/${blockchain_id}/tokens/${address}/nft_metadata/${tokenId}/?quote-currency=USD&format=JSON&key=${process.env.REACT_APP_COVALENT_APIKEY}`
     );
     const data = await response.json();
     console.log(data.data.items[0].nft_data[0]);

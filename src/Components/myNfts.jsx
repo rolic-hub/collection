@@ -17,7 +17,7 @@ const MyNfts = ({ account, collection }) => {
   };
   const makeRequest = async () => {
     const response = await fetch(
-      `https://api.covalenthq.com/v1/${blockchain_id}/address/${account}/balances_v2/?quote-currency=USD&format=JSON&nft=true&no-nft-fetch=false&key=ckey_03ca034ffa1d4a53b6e223aa9a5`
+      `https://api.covalenthq.com/v1/${blockchain_id}/address/${account}/balances_v2/?quote-currency=USD&format=JSON&nft=true&no-nft-fetch=false&key=${process.env.REACT_APP_COVALENT_APIKEY}`
     );
     const data = await response.json();
     console.log(data.data.items);
