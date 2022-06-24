@@ -1,38 +1,40 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { Row, Form, Button } from "react-bootstrap";
 import { create as ipfsHttpClient } from "ipfs-http-client";
 
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
-const Create = ({collection}) => {
-     const [image, setImage] = useState("");
-     const [collectionname, setCollectionName] = useState("");
-     const [symbol, setSymbol] = useState("");
-     
+const Create = ({ collection, getImage }) => {
+  const [image, setImage] = useState("");
+  const [collectionname, setCollectionName] = useState("");
+  const [symbol, setSymbol] = useState("");
 
-     const uploadToIPFS = async (event) => {
-       event.preventDefault();
-       const file = event.target.files[0];
-       if (typeof file !== "undefined") {
-         try {
-           const result = await client.add(file);
-           console.log(result);
-           setImage(`https://ipfs.infura.io/ipfs/${result.path}`);
-         } catch (error) {
-           console.log("ipfs image upload error: ", error);
-         }
-       }
-     };
+  const uploadToIPFS = async (event) => {
+    event.preventDefault();
+    const file = event.target.files[0];
+    if (typeof file !== "undefined") {
+      try {
+        const result = await client.add(file);
+        console.log(result);
+        setImage(`https://ipfs.infura.io/ipfs/${result.path}`);
+      } catch (error) {
+        console.log("ipfs image upload error: ", error);
+      }
+    }
+  };
 
-     const createCollection = async () => {
-        if(!symbol || !collectionname ) return ;
-        try {
-          await (await collection.createCollection(collectionname, symbol)).wait()
- 
-        } catch (error) {
-            console.log(error);
-        }
-     }
+  const createCollection = async () => {
+    if (!symbol || !collectionname) return;
+    try {
+      await (await collection.createCollection(collectionname, symbol)).wait();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+  
+  }, []);
   return (
     <div className="container-fluid mt-5">
       <div className="row">
@@ -47,7 +49,7 @@ const Create = ({collection}) => {
                 type="file"
                 required
                 name="file"
-                // onChange={uploadToIPFS}
+                 onChange={getImage}
               />
               <Form.Control
                 onChange={(e) => setCollectionName(e.target.value)}
@@ -64,11 +66,7 @@ const Create = ({collection}) => {
                 placeholder="Symbol"
               />
               <div className="d-grid px-0">
-                <Button
-                 onClick={createCollection}
-                  variant="primary"
-                  size="lg"
-                >
+                <Button onClick={createCollection} variant="primary" size="lg">
                   Create Collection
                 </Button>
               </div>
@@ -78,6 +76,6 @@ const Create = ({collection}) => {
       </div>
     </div>
   );
-}
+};
 
 export default Create

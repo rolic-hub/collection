@@ -10,8 +10,11 @@ import marketplaceAbi from "./AbiFolder/Marketplace.json";
 import { ethers } from "ethers";
 import CollectionView from "./Components/CollectionView";
 import NftPage from "./Components/nftPage";
+import { create as ipfsHttpClient } from "ipfs-http-client";
+import MyNfts from "./Components/myNfts";
 
 const { ethereum } = window;
+const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
 
 function App() {
@@ -22,6 +25,9 @@ function App() {
   const [collection, setCollection] = useState();
   const [metamaskSigner, setMaskSigner] = useState();
   const [marketplace, setMarketPlace] = useState({});
+  const [image, setImage] = useState()
+
+  const coverPhotos = [];
 
   const web3handler = async () => {
     const accounts = await ethereum.request({
@@ -86,6 +92,24 @@ function App() {
     setMarketPlace(getMarketcontract);
   };
 
+  const getImage = async ( event, address ) => {
+    
+       event.preventDefault();
+       const file = event.target.files[0];
+       if (typeof file !== "undefined") {
+         try {
+           const result = await client.add(file);
+           console.log(result);
+          //  setImage(`);
+         const mapping = new Map();
+         mapping.set(address, result.path)
+         } catch (error) {
+           console.log("ipfs image upload error: ", error);
+         }
+     
+     };
+  }
+
   return (
     <div className="App">
       <Navigation
@@ -104,10 +128,14 @@ function App() {
               collection={collection}
               marketplace={marketplace}
               account={account}
+              coverPhotos={coverPhotos}
             />
           }
         />
-        <Route path="/create" element={<Create collection={collection} />} />
+        <Route
+          path="/create"
+          element={<Create collection={collection} getImage={getImage} />}
+        />
         <Route
           path="/collection/:address"
           element={
@@ -115,6 +143,7 @@ function App() {
               collection={collection}
               account={account}
               metamaskSigner={metamaskSigner}
+              coverPhotos={coverPhotos}
             />
           }
         />
@@ -123,6 +152,9 @@ function App() {
           element={
             <NftPage metamaskSigner={metamaskSigner} account={account} />
           }
+        />
+        <Route 
+        path="/my-Nfts" element={<MyNfts account={account} collection={collection}/>}
         />
       </Routes>
     </div>

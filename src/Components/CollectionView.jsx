@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Card } from "react-bootstrap";
 import "./style.css";
 import CreateNft from "./createNft";
 import { MdOutlineArrowBackIosNew } from "react-icons/md";
 
 const CollectionView = (props) => {
-  const { collection, account, metamaskSigner } = props;
+  const { collection, account, metamaskSigner, coverPhotos } = props;
   const [result, setResult] = useState([]);
   const [nftData, setNftdata] = useState();
   const [imageBox, SetImage] = useState([]);
   const [tokenId, setTokenId] = useState(null);
-  
 
   const { address } = useParams();
   const blockchain_id = 80001;
@@ -50,7 +49,6 @@ const CollectionView = (props) => {
       const result = data.data.items[0].nft_data[0].external_data.image_256;
       console.log(result);
       imageArray.push(result);
-      
     }
     SetImage(imageArray);
     console.log(imageArray);
@@ -61,7 +59,7 @@ const CollectionView = (props) => {
     if (account !== "") {
       getData();
     }
-  }, []);
+  }, [tokenId]);
   return (
     <div className="collection-background">
       <br />
@@ -109,15 +107,22 @@ const CollectionView = (props) => {
               >
                 <strong style={{ color: "white", marginRight: "50px" }}>
                   {" "}
-                  Collection Name <br />{" "}
+                  Collection Name <br /> <br />
                   <strong style={{ marginLeft: "30px" }}>{result._name}</strong>
                 </strong>
 
-                <strong style={{ color: "white" }}>
+                <strong style={{ color: "white", marginRight: "50px" }}>
                   {" "}
-                  Collection Symbol <br />{" "}
+                  Collection Symbol <br /> <br />
                   <strong style={{ marginLeft: "50px" }}>
                     {result._symbol}
+                  </strong>
+                </strong>
+                <strong style={{ color: "white" }}>
+                  {" "}
+                  Collection Count <br /> <br />
+                  <strong style={{ marginLeft: "50px" }}>
+                    {token_id.length}
                   </strong>
                 </strong>
               </div>
@@ -140,16 +145,22 @@ const CollectionView = (props) => {
         </a>
         <CreateNft address={address} metamaskSigner={metamaskSigner} />
         <div style={{ marginTop: "50px" }}>
-          <h4 style={{ marginLeft: "50px" }}> NFT PREVIEW </h4>
-          <div className="collection-display">
-            {imageBox.map((image, i) => (
-              <div className="nft">
-                <a href={`/nft/${address}/${tokenId}`}>
-                  <img src={image} alt={`Nft#${tokenId}`} />
-                </a>
+          {imageBox.length > 0 ? (
+            <>
+              <h4 style={{ marginLeft: "50px" }}> NFT PREVIEW </h4>
+              <div className="collection-display">
+                {imageBox.map((image, i) => (
+                  <div className="nft">
+                    <a href={`/nft/${address}/${tokenId}`}>
+                      <img src={image} alt={`Nft#${tokenId}`} />
+                    </a>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </>
+          ) : (
+            <br />
+          )}
         </div>
         <br />
       </div>
