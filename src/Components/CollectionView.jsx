@@ -26,7 +26,7 @@ const CollectionView = (props) => {
 
   const makeRequest = async () => {
     const response = await fetch(
-      `https://api.covalenthq.com/v1/${blockchain_id}/tokens/${address}/nft_token_ids/?key=${process.env.REACT_APP_COVALENT_APIKEY}`
+      `https://api.covalenthq.com/v1/${blockchain_id}/tokens/${address}/nft_token_ids/?key=ckey_03ca034ffa1d4a53b6e223aa9a5`
     );
     const data = await response.json();
     const result = data.data.items;
@@ -43,7 +43,7 @@ const CollectionView = (props) => {
     for (let i = 0; i < token_id.length; i++) {
       const id = token_id[i];
       const response = await fetch(
-        `https://api.covalenthq.com/v1/${blockchain_id}/tokens/${address}/nft_metadata/${id}/?quote-currency=USD&format=JSON&key=${process.env.REACT_APP_COVALENT_APIKEY}`
+        `https://api.covalenthq.com/v1/${blockchain_id}/tokens/${address}/nft_metadata/${id}/?quote-currency=USD&format=JSON&key=ckey_03ca034ffa1d4a53b6e223aa9a5`
       );
       const data = await response.json();
       const result = data.data.items[0].nft_data[0].external_data.image_256;

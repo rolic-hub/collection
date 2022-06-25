@@ -39,7 +39,7 @@ const Home = (props) => {
             <img src="" alt="">
           ))} */}
           <Row xs={1} md={2} lg={4} className="g-4 py-5">
-            {loading ? <Loading/> : result.map((item, idx) => (
+            {result.map((item, idx) => (
               <Col key={idx} className="overflow-hidden">
                 <Card>
                   <Link to={`/collection/${item.address}`}>
