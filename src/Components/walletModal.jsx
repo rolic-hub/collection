@@ -4,14 +4,23 @@ import metamask from "../assets/metamask.png";
 import unsdomain from "../assets/unsdomain.png";
 import WalletConnect from "../assets/WalletConnect.jpg";
 
-
 const WalletModal = ({
   web3handler,
   walletC,
   unsLogin,
   connect,
   setConnect,
+  account
 }) => {
+  // const showModal = () => {
+  //   if(account !== undefined || null) {
+  //     console.log(account)
+  //     setConnect(false);
+
+  //   }else{
+  //     setConnect(true)
+  //   }
+  // }
   return (
     <>
       <Modal

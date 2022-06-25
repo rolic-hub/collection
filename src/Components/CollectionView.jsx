@@ -10,6 +10,7 @@ const CollectionView = (props) => {
   const [result, setResult] = useState([]);
   const [nftData, setNftdata] = useState();
   const [imageBox, SetImage] = useState([]);
+  const [count, setCount] = useState(0)
   const [tokenId, setTokenId] = useState(null);
 
   const { address } = useParams();
@@ -34,8 +35,10 @@ const CollectionView = (props) => {
       const id = element.token_id;
       setTokenId(id);
       token_id.push(id);
-      console.log(token_id);
+      
+
     });
+    setCount(token_id.length)
     nftPreview();
   };
 
@@ -47,7 +50,7 @@ const CollectionView = (props) => {
       );
       const data = await response.json();
       const result = data.data.items[0].nft_data[0].external_data.image_256;
-      console.log(result);
+      
       imageArray.push(result);
     }
     SetImage(imageArray);
@@ -122,7 +125,7 @@ const CollectionView = (props) => {
                   {" "}
                   Collection Count <br /> <br />
                   <strong style={{ marginLeft: "50px" }}>
-                    {token_id.length}
+                    {count}
                   </strong>
                 </strong>
               </div>

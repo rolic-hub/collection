@@ -41,7 +41,7 @@ const MyNfts = ({ account, collection }) => {
     getAddress();
   }, []);
   return (
-    <div>
+    <div style={{margin:"50px"}}>
       {data.map((item, i) => (
         <Card key={i} style={{ width: "18rem" }}>
           <Card.Img variant="top" src={item?.external_data?.image} />

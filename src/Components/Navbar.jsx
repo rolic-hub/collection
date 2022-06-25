@@ -4,14 +4,14 @@ import React from "react";
 import WalletModal from "./walletModal";
 //ckey_03ca034ffa1d4a53b6e223aa9a5
 
-const Navigation = ({ web3handler,
-        walletC,
-        unsLogin,
-        connect,
-        setConnect,
-        account}) => {
- 
- 
+const Navigation = ({
+  web3handler,
+  walletC,
+  unsLogin,
+  connect,
+  setConnect,
+  account,
+}) => {
   return (
     <Navbar expand="lg" bg="primary" variant="dark">
       <Container>
@@ -37,7 +37,6 @@ const Navigation = ({ web3handler,
             <Nav.Link as={Link} to="/my-Nfts">
               My Nfts
             </Nav.Link>
-           
           </Nav>
           <Nav>
             {account ? (
@@ -62,7 +61,7 @@ const Navigation = ({ web3handler,
               unsLogin={unsLogin}
               connect={connect}
               setConnect={setConnect}
-              
+              account={account}
             />
           </Nav>
         </Navbar.Collapse>
