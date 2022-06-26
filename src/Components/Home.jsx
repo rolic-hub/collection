@@ -19,7 +19,9 @@ const Home = (props) => {
       data.push({
         name: items._name,
         symbol: items._symbol,
-        address: Nftaddress,
+        image: items._image,
+        address: Nftaddress
+        
       });
     }
 

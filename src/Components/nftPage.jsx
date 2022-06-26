@@ -8,11 +8,13 @@ import { MdOutlineArrowBackIosNew } from "react-icons/md";
 import nftAbi from "../AbiFolder/NFTCONTRACT.json";
 
 const NftPage = (props) => {
-  const { metamaskSigner, account } = props;
+  const { metamaskSigner } = props;
   const { address, tokenId } = useParams();
   const [nftdata, setNftdata] = useState();
   const [transactions, setTransactions] = useState([]);
   const blockchain_id = 80001;
+  const feeAccount = "0x12114765eeA16473363682Cf832F5603BB8f6110";
+  const account = window.localStorage.getItem("account");
 
   const nftTransactions = async () => {
     const response = await fetch(
@@ -22,13 +24,6 @@ const NftPage = (props) => {
     console.log(data.data.items[0].nft_transactions);
     setTransactions(data.data.items[0].nft_transactions);
   };
-  // const transferNft = async () => {
-  //   try {
-  //     const contract = new ethers.Contract(address, nftAbi.abi, metamaskSigner);
-  //     await (await contract.setApprovalForAll(address, true)).wait();
-  //     await await contract.safeTransferFrom(address, account, tokenId);
-  //   } catch (error) {}
-  // };
 
   const nftProfile = async () => {
     const response = await fetch(
@@ -37,6 +32,23 @@ const NftPage = (props) => {
     const data = await response.json();
     console.log(data.data.items[0].nft_data[0]);
     setNftdata(data.data.items[0].nft_data[0]);
+  };
+
+  const purchaseNft = async () => {
+    try {
+      const contract = new ethers.Contract(address, nftAbi.abi, metamaskSigner);
+      await (
+        await contract.purchaseItem(
+          nftdata?.token_id,
+          nftdata?.token_quote_rate_eth,
+          feeAccount,
+          nftdata?.owner,
+          account
+        )
+      ).wait();
+    } catch (error) {
+      console.log(error);
+    }
   };
   useEffect(() => {
     nftProfile();
@@ -69,7 +81,10 @@ const NftPage = (props) => {
               src={nftdata?.external_data?.image}
             />
           </div>
-          <Button style={{ maginTop: "20px", marginLeft: "4.5em" }}>
+          <Button
+            onClick={purchaseNft}
+            style={{ maginTop: "20px", marginLeft: "4.5em" }}
+          >
             {nftdata?.token_quote_rate_eth <= 0 ||
             nftdata?.token_quote_rate_eth === null ? (
               <strong>Purchase for Free</strong>

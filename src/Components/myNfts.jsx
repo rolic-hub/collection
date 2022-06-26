@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
 
-const MyNfts = ({ account, collection }) => {
+const MyNfts = ({ collection }) => {
   const blockchain_id = 80001;
   const [data, setData] = useState([]);
   let dataArray = [];
   let addressArray = [];
+  let contract = [];
+  const account = window.localStorage.getItem("account");
 
   const getAddress = async () => {
     const collectionCount = await collection?.noOfCollections();
@@ -23,6 +25,8 @@ const MyNfts = ({ account, collection }) => {
     const data = await response.json();
     const result = data.data.items;
     result.forEach((element) => {
+      contract.push(element.contract_address);
+      console.log(contract);
       for (let index = 0; index < addressArray.length; index++) {
         if (
           element.contract_address.toLowerCase() ===
@@ -40,18 +44,25 @@ const MyNfts = ({ account, collection }) => {
     getAddress();
   }, []);
   return (
-    <div style={{margin:"50px"}}>
-      {data.length > 0 ? data.map((item, i) => (
-        <Card key={i} style={{ width: "18rem" }}>
-          <Card.Img variant="top" src={item?.external_data?.image} />
-          <Card.Title>{item?.external_data?.name}</Card.Title>
-          <Card.Body>
-            <Card.Text>{item?.external_data?.description}</Card.Text>
-          </Card.Body>
-        </Card>
-      )) : <div>
-        <h3>User has no Nft associated with contract adresses listed on this platform</h3>
-        </div> }
+    <div style={{ margin: "50px" }}>
+      {data.length > 0 ? (
+        data.map((item, i) => (
+          <Card key={i} style={{ width: "18rem" }}>
+            <Card.Img variant="top" src={item?.external_data?.image} />
+            <Card.Title>{item?.external_data?.name}</Card.Title>
+            <Card.Body>
+              <Card.Text>{item?.external_data?.description}</Card.Text>
+            </Card.Body>
+          </Card>
+        ))
+      ) : (
+        <div>
+          <h3>
+            User has no Nft associated with contract adresses listed on this
+            platform
+          </h3>
+        </div>
+      )}
     </div>
   );
 };

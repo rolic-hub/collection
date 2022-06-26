@@ -10,8 +10,8 @@ const Navigation = ({
   unsLogin,
   connect,
   setConnect,
-  account,
 }) => {
+  const account = window.localStorage.getItem("account")
   return (
     <Navbar expand="lg" bg="primary" variant="dark">
       <Container>

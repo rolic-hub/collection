@@ -111,7 +111,7 @@ const CollectionView = (props) => {
                 <strong style={{ color: "white", marginRight: "50px" }}>
                   {" "}
                   Collection Name <br /> <br />
-                  <strong style={{ marginLeft: "30px" }}>{result._name}</strong>
+                  <strong style={{ marginLeft: "10px" }}>{result._name}</strong>
                 </strong>
 
                 <strong style={{ color: "white", marginRight: "50px" }}>

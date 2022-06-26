@@ -45,7 +45,7 @@ const CreateNft = (props) => {
       name: name,
       description: description,
       image: image,
-      token_quote_rate_eth: price,
+      value: price,
       token_price_wei: price * 10**18,
       attributes: [
         {
