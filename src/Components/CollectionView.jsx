@@ -6,7 +6,7 @@ import CreateNft from "./createNft";
 import { MdOutlineArrowBackIosNew } from "react-icons/md";
 
 const CollectionView = (props) => {
-  const { collection, account, metamaskSigner, coverPhotos } = props;
+  const { collection, account, metamaskSigner } = props;
   const [result, setResult] = useState([]);
   const [nftData, setNftdata] = useState();
   const [imageBox, SetImage] = useState([]);
@@ -80,7 +80,7 @@ const CollectionView = (props) => {
             }}
           >
             <img
-              src="https://t4.ftcdn.net/jpg/02/51/95/53/360_F_251955356_FAQH0U1y1TZw3ZcdPGybwUkH90a3VAhb.jpg"
+              src={result._image}
               alt="CollectionImage"
               height="250px"
               width="300px"

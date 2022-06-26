@@ -84,7 +84,11 @@ const CreateNft = (props) => {
   const getNftContract = async (uri) => {
     setLoading(true);
     try {
-      const nftContract = new ethers.Contract(address, nftAbi.abi, metamaskSigner);
+      const nftContract = new ethers.Contract(
+        address,
+        nftAbi.abi,
+        metamaskSigner
+      );
       await (await nftContract.mint(uri)).wait();
      
     } catch (error) {

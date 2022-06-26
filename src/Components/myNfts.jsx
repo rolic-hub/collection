@@ -6,7 +6,6 @@ const MyNfts = ({ account, collection }) => {
   const [data, setData] = useState([]);
   let dataArray = [];
   let addressArray = [];
-  let contractAddress = [];
 
   const getAddress = async () => {
     const collectionCount = await collection?.noOfCollections();
@@ -42,7 +41,7 @@ const MyNfts = ({ account, collection }) => {
   }, []);
   return (
     <div style={{margin:"50px"}}>
-      {data.map((item, i) => (
+      {data.length > 0 ? data.map((item, i) => (
         <Card key={i} style={{ width: "18rem" }}>
           <Card.Img variant="top" src={item?.external_data?.image} />
           <Card.Title>{item?.external_data?.name}</Card.Title>
@@ -50,7 +49,9 @@ const MyNfts = ({ account, collection }) => {
             <Card.Text>{item?.external_data?.description}</Card.Text>
           </Card.Body>
         </Card>
-      ))}
+      )) : <div>
+        <h3>User has no Nft associated with contract adresses listed on this platform</h3>
+        </div> }
     </div>
   );
 };

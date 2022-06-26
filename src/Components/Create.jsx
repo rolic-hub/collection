@@ -4,7 +4,7 @@ import { create as ipfsHttpClient } from "ipfs-http-client";
 
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
-const Create = ({ collection, getImage }) => {
+const Create = ({ collection }) => {
   const [image, setImage] = useState("");
   const [collectionname, setCollectionName] = useState("");
   const [symbol, setSymbol] = useState("");
@@ -24,9 +24,9 @@ const Create = ({ collection, getImage }) => {
   };
 
   const createCollection = async () => {
-    if (!symbol || !collectionname) return;
+    if (!symbol || !collectionname || !image) return;
     try {
-      await (await collection.createCollection(collectionname, symbol)).wait();
+      await (await collection.createCollection(collectionname, symbol, image)).wait();
     } catch (error) {
       console.log(error);
     }
@@ -49,7 +49,7 @@ const Create = ({ collection, getImage }) => {
                 type="file"
                 required
                 name="file"
-                 onChange={getImage}
+                 onChange={uploadToIPFS}
               />
               <Form.Control
                 onChange={(e) => setCollectionName(e.target.value)}

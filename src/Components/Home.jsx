@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Loading from "./loading";
 
 const Home = (props) => {
-  const { collection, account, coverPhotos } = props;
+  const { collection, account } = props;
   const [result, setResult] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -20,7 +20,6 @@ const Home = (props) => {
         name: items._name,
         symbol: items._symbol,
         address: Nftaddress,
-        image: coverPhotos,
       });
     }
 
@@ -42,6 +41,7 @@ const Home = (props) => {
             {result.map((item, idx) => (
               <Col key={idx} className="overflow-hidden">
                 <Card>
+                  <Card.Img variant="top" src={item.image}/>
                   <Link to={`/collection/${item.address}`}>
                     <Card.Body color="secondary">
                       <Card.Title>{item.name}</Card.Title>
