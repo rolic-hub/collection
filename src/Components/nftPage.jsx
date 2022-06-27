@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ethers } from "ethers";
-import { Table, Button } from "react-bootstrap";
+import { Table, Button, ButtonGroup, ToggleButton } from "react-bootstrap";
 import moment from "moment";
 import { BsPersonCircle } from "react-icons/bs";
 import { MdOutlineArrowBackIosNew } from "react-icons/md";
@@ -40,10 +40,10 @@ const NftPage = (props) => {
       await (
         await contract.purchaseItem(
           nftdata?.token_id,
-          nftdata?.token_quote_rate_eth,
           feeAccount,
           nftdata?.owner,
-          account
+          account,
+          { value: nftdata?.token_quote_rate_eth }
         )
       ).wait();
     } catch (error) {
@@ -72,16 +72,13 @@ const NftPage = (props) => {
         <div style={{ marginLeft: "5em" }}>
           <div className="img-container">
             <img
-              // onError={(event) => {
-              //   event.target.classList.add("error-image");
-              //   event.target.classList.remove("nft-img");
-              // }}
               alt={`Nft-#${tokenId}`}
               className="nft-img"
               src={nftdata?.external_data?.image}
             />
           </div>
           <Button
+            disabled = {nftdata?.owner === account ? true : false}
             onClick={purchaseNft}
             style={{ maginTop: "20px", marginLeft: "4.5em" }}
           >
@@ -136,7 +133,7 @@ const NftPage = (props) => {
           <table className="nft-table">
             {nftdata?.external_data?.attributes ? (
               <>
-                <strong>Attributes</strong>
+                <strong style={{ marginTop: "10px" }}>Attributes</strong>
                 {nftdata.external_data.attributes.map((o, i) => {
                   return (
                     <tr key={i}>

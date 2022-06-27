@@ -5,6 +5,7 @@ import { RiAddCircleLine } from "react-icons/ri";
 import "./style.css";
 import { ethers } from "ethers";
 import nftAbi from "../AbiFolder/NFTCONTRACT.json";
+import ToastComp from "./toast";
 
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
@@ -26,6 +27,7 @@ const CreateNft = (props) => {
   const [thirdTraitValue, setThirdTraitValue] = useState("");
   const [fourthTraitValue, setFourthTraitValue] = useState("");
   const [fifthTraitValue, setFifthTraitvalue] = useState("");
+  const [show, setShow] = useState(false)
 
   const uploadToIPFS = async (event) => {
     event.preventDefault();
@@ -45,7 +47,7 @@ const CreateNft = (props) => {
       name: name,
       description: description,
       image: image,
-      value: price,
+      token_price: price,
       token_price_wei: price * 10**18,
       attributes: [
         {
@@ -76,8 +78,11 @@ const CreateNft = (props) => {
       console.log(result);
       const uri = `https://ipfs.infura.io/ipfs/${result.path}`;
       getNftContract(uri);
+
     } catch (error) {
       console.log("ipfs uri upload error: ", error);
+       setShow(true);
+       <ToastComp show={show} setShow={setShow} message={error} />;
     }
   };
 
@@ -90,13 +95,18 @@ const CreateNft = (props) => {
         metamaskSigner
       );
       await (await nftContract.mint(uri)).wait();
+      const message = `nft minted sucessfully uri-${uri}`
+       setShow(true);
+       <ToastComp show={show} setShow={setShow} message={message}/>
      
     } catch (error) {
       console.log("Could not mint Nft", error);
+       setShow(true);
+       <ToastComp show={show} setShow={setShow} message={error} />
     }
   };
 
-  const show = () => {
+  const showT = () => {
     if (trait) {
       settrait(false);
     } else {
@@ -148,7 +158,7 @@ const CreateNft = (props) => {
                   <Form.Group>
                     <Form.Label>Traits</Form.Label>
 
-                    <Button style={{ marginLeft: "10px" }} onClick={show}>
+                    <Button style={{ marginLeft: "10px" }} onClick={showT}>
                       <RiAddCircleLine />
                     </Button>
                     <br />

@@ -43,12 +43,12 @@ const Home = (props) => {
             {result.map((item, idx) => (
               <Col key={idx} className="overflow-hidden">
                 <Card>
-                  <Card.Img variant="top" src={item.image}/>
-                  <Link to={`/collection/${item.address}`}>
+                  <Card.Img variant="top" height="200px" src={item.image}/>
+                  <Link style={{textDecoration:"none"}} to={`/collection/${item.address}`}>
                     <Card.Body color="secondary">
                       <Card.Title>{item.name}</Card.Title>
                       <Card.Text>
-                        {item.symbol} <br /> {item.address}
+                        {item.symbol} <br /> {(item.address).slice(0,20)}...
                       </Card.Text>
                     </Card.Body>
                   </Link>

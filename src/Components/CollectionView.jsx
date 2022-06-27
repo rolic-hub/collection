@@ -8,9 +8,8 @@ import { MdOutlineArrowBackIosNew } from "react-icons/md";
 const CollectionView = (props) => {
   const { collection, account, metamaskSigner } = props;
   const [result, setResult] = useState([]);
-  const [nftData, setNftdata] = useState();
   const [imageBox, SetImage] = useState([]);
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
   const [tokenId, setTokenId] = useState(null);
 
   const { address } = useParams();
@@ -30,15 +29,15 @@ const CollectionView = (props) => {
       `https://api.covalenthq.com/v1/${blockchain_id}/tokens/${address}/nft_token_ids/?key=ckey_03ca034ffa1d4a53b6e223aa9a5`
     );
     const data = await response.json();
+    console.log(data);
     const result = data.data.items;
     result.forEach((element) => {
       const id = element.token_id;
       setTokenId(id);
       token_id.push(id);
-      
-
     });
-    setCount(token_id.length)
+    setCount(token_id.length);
+    console.log(token_id);
     nftPreview();
   };
 
@@ -49,9 +48,14 @@ const CollectionView = (props) => {
         `https://api.covalenthq.com/v1/${blockchain_id}/tokens/${address}/nft_metadata/${id}/?quote-currency=USD&format=JSON&key=ckey_03ca034ffa1d4a53b6e223aa9a5`
       );
       const data = await response.json();
-      const result = data.data.items[0].nft_data[0].external_data.image_256;
-      
-      imageArray.push(result);
+      console.log(data)
+      const result = data.data.items[0].nft_data[0];
+      console.log(result);
+
+      imageArray.push({
+        image: result.external_data.image_256 || result.external_data.image,
+        tokenId: result.token_id,
+      });
     }
     SetImage(imageArray);
     console.log(imageArray);
@@ -59,10 +63,8 @@ const CollectionView = (props) => {
   useEffect(() => {
     makeRequest();
 
-    if (account !== "") {
-      getData();
-    }
-  }, [tokenId]);
+    getData();
+  }, []);
   return (
     <div className="collection-background">
       <br />
@@ -124,9 +126,7 @@ const CollectionView = (props) => {
                 <strong style={{ color: "white" }}>
                   {" "}
                   Collection Count <br /> <br />
-                  <strong style={{ marginLeft: "50px" }}>
-                    {count}
-                  </strong>
+                  <strong style={{ marginLeft: "50px" }}>{count}</strong>
                 </strong>
               </div>
             </div>
@@ -139,7 +139,7 @@ const CollectionView = (props) => {
             textDecoration: "none",
             marginTop: "20px",
           }}
-          href={`/collection/${address}`}
+          href={`/`}
         >
           <p style={{ fontSize: "25px" }}>
             {" "}
@@ -152,10 +152,10 @@ const CollectionView = (props) => {
             <>
               <h4 style={{ marginLeft: "50px" }}> NFT PREVIEW </h4>
               <div className="collection-display">
-                {imageBox.map((image, i) => (
+                {imageBox.map((item, i) => (
                   <div className="nft">
-                    <a href={`/nft/${address}/${tokenId}`}>
-                      <img src={image} alt={`Nft#${tokenId}`} />
+                    <a href={`/nft/${address}/${item.tokenId}`}>
+                      <img src={item.image} alt={`Nft#${item.tokenId}`} />
                     </a>
                   </div>
                 ))}

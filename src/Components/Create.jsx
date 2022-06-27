@@ -1,6 +1,7 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import { Row, Form, Button } from "react-bootstrap";
 import { create as ipfsHttpClient } from "ipfs-http-client";
+import ToastComp from './toast';
 
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
@@ -8,6 +9,7 @@ const Create = ({ collection }) => {
   const [image, setImage] = useState("");
   const [collectionname, setCollectionName] = useState("");
   const [symbol, setSymbol] = useState("");
+  const [show, setShow] = useState(false)
 
   const uploadToIPFS = async (event) => {
     event.preventDefault();
@@ -27,15 +29,18 @@ const Create = ({ collection }) => {
     if (!symbol || !collectionname || !image) return;
     try {
       await (await collection.createCollection(collectionname, symbol, image)).wait();
+      const message = "Transaction Sucessful"
+       setShow(true);
+
+       <ToastComp show={show} setShow={setShow} message={message} />;
     } catch (error) {
       console.log(error);
+       setShow(true);
+       <ToastComp show={show} setShow={setShow} message={error} />;
     }
   };
 
-  useEffect(() => {
-  
-  }, []);
-  return (
+   return (
     <div className="container-fluid mt-5">
       <div className="row">
         <main

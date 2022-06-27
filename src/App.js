@@ -12,11 +12,13 @@ import CollectionView from "./Components/CollectionView";
 import NftPage from "./Components/nftPage";
 
 import MyNfts from "./Components/myNfts";
+import ToastComp from "./Components/toast";
 
 const { ethereum } = window;
 
 function App() {
   const [connect, setConnect] = useState(true);
+  const [show, setShow] = useState(false);
   const collectionaddress = "0xf461710d72990023d8E8826f5aFF681dae50BBca";
 
   const [account, setAccount] = useState(localStorage.getItem("account"));
@@ -44,7 +46,8 @@ function App() {
       infuraId: "27e484dcd9e3efcfd25a83a78777cdf1",
     });
     //  Enable session (triggers QR Code modal)
-    await provider.enable();
+    try {
+     await provider.enable();
     await provider.request({ payload: "eth_requestAccounts" });
 
     const web3Provider = new ethers.providers.Web3Provider(provider);
@@ -55,7 +58,12 @@ function App() {
 
     setConnect(false);
     setMaskSigner(Wsigner);
-    loadContract(Wsigner);
+    loadContract(Wsigner); 
+    } catch (error) {
+      setShow(true);
+      <ToastComp show={show} setShow={setShow} message={error}/>
+    }
+    
   };
 
   const unsLogin = async () => {
@@ -79,6 +87,8 @@ function App() {
       loadContract(signer);
     } catch (error) {
       console.log(error);
+       setShow(true);
+       <ToastComp show={show} setShow={setShow} message={error} />;
     }
   };
 

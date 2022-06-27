@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Card } from "react-bootstrap";
+import { Card, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const MyNfts = ({ collection }) => {
   const blockchain_id = 80001;
@@ -25,19 +26,21 @@ const MyNfts = ({ collection }) => {
     const data = await response.json();
     const result = data.data.items;
     result.forEach((element) => {
-      contract.push(element.contract_address);
-      console.log(contract);
       for (let index = 0; index < addressArray.length; index++) {
         if (
           element.contract_address.toLowerCase() ===
           addressArray[index].toLowerCase()
         ) {
-          const result = element.nft_data[0];
-          dataArray.push(result);
+          const result = element.nft_data;
+          result.forEach((element) => {
+            dataArray.push(element);
+          });
         }
       }
     });
+
     console.log(dataArray);
+
     setData(dataArray);
   };
   useEffect(() => {
@@ -45,24 +48,34 @@ const MyNfts = ({ collection }) => {
   }, []);
   return (
     <div style={{ margin: "50px" }}>
-      {data.length > 0 ? (
-        data.map((item, i) => (
-          <Card key={i} style={{ width: "18rem" }}>
-            <Card.Img variant="top" src={item?.external_data?.image} />
-            <Card.Title>{item?.external_data?.name}</Card.Title>
-            <Card.Body>
-              <Card.Text>{item?.external_data?.description}</Card.Text>
-            </Card.Body>
-          </Card>
-        ))
-      ) : (
-        <div>
-          <h3>
-            User has no Nft associated with contract adresses listed on this
-            platform
-          </h3>
-        </div>
-      )}
+      <Row xs={1} md={2} lg={4} className="g-4 py-5">
+        {data.length > 0 ? (
+          data.map((item, i) => (
+            <Col key={i} className="overflow-hidden">
+              <Card key={i} style={{ width: "18rem", margin: "20px" }}>
+                <Card.Img
+                  variant="top"
+                  height="300px"
+                  src={item?.external_data?.image}
+                />
+                <Card.Title style={{marginLeft: "20px"}}>{item?.external_data?.name}</Card.Title>
+                <Card.Body>
+                  <Card.Text>
+                    {item?.external_data?.description.slice(0, 60)}....
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))
+        ) : (
+          <div>
+            <h3>
+              User has no Nft associated with contract adresses listed on this
+              platform
+            </h3>
+          </div>
+        )}
+      </Row>
     </div>
   );
 };
