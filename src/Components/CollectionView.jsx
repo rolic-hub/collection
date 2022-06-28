@@ -10,7 +10,6 @@ const CollectionView = (props) => {
   const [result, setResult] = useState([]);
   const [imageBox, SetImage] = useState([]);
   const [count, setCount] = useState(0);
-  const [tokenId, setTokenId] = useState(null);
 
   const { address } = useParams();
   const blockchain_id = 80001;
@@ -33,7 +32,7 @@ const CollectionView = (props) => {
     const result = data.data.items;
     result.forEach((element) => {
       const id = element.token_id;
-      setTokenId(id);
+
       token_id.push(id);
     });
     setCount(token_id.length);
@@ -48,7 +47,7 @@ const CollectionView = (props) => {
         `https://api.covalenthq.com/v1/${blockchain_id}/tokens/${address}/nft_metadata/${id}/?quote-currency=USD&format=JSON&key=ckey_03ca034ffa1d4a53b6e223aa9a5`
       );
       const data = await response.json();
-      console.log(data)
+      console.log(data);
       const result = data.data.items[0].nft_data[0];
       console.log(result);
 
@@ -61,10 +60,9 @@ const CollectionView = (props) => {
     console.log(imageArray);
   };
   useEffect(() => {
-    makeRequest();
-
     getData();
-  }, []);
+    makeRequest();
+  });
   return (
     <div className="collection-background">
       <br />

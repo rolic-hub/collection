@@ -14,7 +14,7 @@ const CreateNft = (props) => {
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const [description, setDescription] = useState("");
-  const [price, setPrice] = useState(null);
+  const [price, setPrice] = useState(0);
   const [image, setImage] = useState("");
   const [trait, settrait] = useState(false);
   const [firstTrait, setFirstTrait] = useState("");
