@@ -95,6 +95,8 @@ const CreateNft = (props) => {
         metamaskSigner
       );
       await (await nftContract.mint(uri)).wait();
+      setLoading(false)
+      window.reload();
       const message = `nft minted sucessfully uri-${uri}`
        setShow(true);
        <ToastComp show={show} setShow={setShow} message={message}/>

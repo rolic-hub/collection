@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { Modal, Row, Form, Button } from "react-bootstrap";
-import { getContract } from "./createNft";
 
-const TransferModal = ({ show, account, tokenId, callTransfer }) => {
+const TransferModal = ({ show, account, tokenId, callTransfer, setshow }) => {
   const [addressTo, setAddressto] = useState("");
 
   
 
   return (
-    <Modal show={show}>
+    <Modal show={show} onHide={() => setshow(false)}>
       <Modal.Header closeButton></Modal.Header>
 
       <Modal.Body>

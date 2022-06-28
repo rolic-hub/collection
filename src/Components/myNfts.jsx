@@ -7,7 +7,8 @@ const MyNfts = ({ collection }) => {
   const [data, setData] = useState([]);
   let dataArray = [];
   let addressArray = [];
-  let contract = [];
+  //let contractAddress = [];
+
   const account = window.localStorage.getItem("account");
 
   const getAddress = async () => {
@@ -16,7 +17,6 @@ const MyNfts = ({ collection }) => {
       const Nftaddress = await collection.nftCollection(i);
       addressArray.push(Nftaddress);
     }
-    console.log(addressArray);
     makeRequest();
   };
   const makeRequest = async () => {
@@ -32,14 +32,14 @@ const MyNfts = ({ collection }) => {
           addressArray[index].toLowerCase()
         ) {
           const result = element.nft_data;
+          //contractAddress.push(element.contract_address)
           result.forEach((element) => {
             dataArray.push(element);
           });
         }
       }
     });
-
-    console.log(dataArray);
+    console.log(dataArray)
 
     setData(dataArray);
   };
@@ -48,9 +48,9 @@ const MyNfts = ({ collection }) => {
   }, []);
   return (
     <div style={{ margin: "50px" }}>
-      <Row xs={1} md={2} lg={4} className="g-4 py-5">
-        {data.length > 0 ? (
-          data.map((item, i) => (
+      {data.length > 0 ? (
+        <Row xs={1} md={2} lg={4} className="g-4 py-5">
+          {data.map((item, i) => (
             <Col key={i} className="overflow-hidden">
               <Card key={i} style={{ width: "18rem", margin: "20px" }}>
                 <Card.Img
@@ -58,7 +58,9 @@ const MyNfts = ({ collection }) => {
                   height="300px"
                   src={item?.external_data?.image}
                 />
-                <Card.Title style={{marginLeft: "20px"}}>{item?.external_data?.name}</Card.Title>
+                <Card.Title style={{ marginLeft: "20px" }}>
+                  {item?.external_data?.name}
+                </Card.Title>
                 <Card.Body>
                   <Card.Text>
                     {item?.external_data?.description.slice(0, 60)}....
@@ -66,16 +68,18 @@ const MyNfts = ({ collection }) => {
                 </Card.Body>
               </Card>
             </Col>
-          ))
-        ) : (
-          <div>
-            <h3>
-              User has no Nft associated with contract adresses listed on this
-              platform
-            </h3>
-          </div>
-        )}
-      </Row>
+          ))}
+        </Row>
+      ) : (
+        <div>
+          <h3>
+            User has no Nft associated with 
+            <br/>
+            contract adresses on this
+            platform
+          </h3>
+        </div>
+      )}
     </div>
   );
 };

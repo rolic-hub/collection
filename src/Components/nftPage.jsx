@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ethers } from "ethers";
-import { Table, Button, ButtonGroup, ToggleButton } from "react-bootstrap";
+import { Table, Button} from "react-bootstrap";
 import moment from "moment";
 import { BsPersonCircle } from "react-icons/bs";
 import { MdOutlineArrowBackIosNew } from "react-icons/md";
@@ -93,7 +93,7 @@ const NftPage = (props) => {
           {nftdata?.owner === account ? (
             <>
               <Button onClick={() => setshow(true)}>Transfer Nft</Button>
-              <TransferModal show={show} account={account} tokenId={tokenId} callTransfer={callTransfer} />
+              <TransferModal show={show} account={account} tokenId={tokenId} callTransfer={callTransfer} setshow={setshow} />
             </>
           ) : (
             <Button

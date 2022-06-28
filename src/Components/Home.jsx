@@ -34,6 +34,11 @@ const Home = (props) => {
 
   return (
     <div className="flex justify-center">
+      <Button style={{color:"white"}}>
+        <Link style={{textDecoration:"none"}} to="/create">
+        Create New Collection
+        </Link>
+      </Button>
       {result.length > 0 ? (
         <div className="px-5 container">
           {/* {coverPhotos.map((item, i) => (

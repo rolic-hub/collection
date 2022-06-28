@@ -11,7 +11,7 @@ const Navigation = ({
   connect,
   setConnect,
 }) => {
-  const account = window.localStorage.getItem("account")
+  const account = window.localStorage.getItem("account");
   return (
     <Navbar expand="lg" bg="primary" variant="dark">
       <Container>
@@ -27,14 +27,11 @@ const Navigation = ({
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link as={Link} to="/">
+          <Nav style={{ marginLeft: "50px" }} className="me-auto">
+            <Nav.Link style={{ marginLeft: "30px" }} as={Link} to="/">
               Home
             </Nav.Link>
-            <Nav.Link as={Link} to="/create">
-              Create
-            </Nav.Link>
-            <Nav.Link as={Link} to="/my-Nfts">
+            <Nav.Link style={{ marginLeft: "30px" }} as={Link} to="/my-Nfts">
               My Nfts
             </Nav.Link>
           </Nav>
