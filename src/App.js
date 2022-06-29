@@ -19,7 +19,7 @@ const { ethereum } = window;
 function App() {
   const [connect, setConnect] = useState(true);
   const [show, setShow] = useState(false);
-  const collectionaddress = "0xf461710d72990023d8E8826f5aFF681dae50BBca";
+  const collectionaddress = "0x9f6A8494290670B0d6D22E82b965b384B4b6fdc2";
 
   const [account, setAccount] = useState(localStorage.getItem("account"));
   const [collection, setCollection] = useState();

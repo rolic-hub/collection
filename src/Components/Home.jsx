@@ -34,8 +34,8 @@ const Home = (props) => {
 
   return (
     <div className="flex justify-center">
-      <Button style={{color:"white"}}>
-        <Link style={{textDecoration:"none"}} to="/create">
+      <Button style={{margin:"30px"}}>
+        <Link style={{textDecoration:"none", color:"white"}} to="/create">
         Create New Collection
         </Link>
       </Button>

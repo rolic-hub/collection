@@ -20,9 +20,9 @@ const NftPage = (props) => {
 
   const callTransfer = async (addressTo) => {
     try {
-      const transfer = new ethers.Contract(address, nftAbi.abi, metamaskSigner);
+      const contract = new ethers.Contract(address, nftAbi.abi, metamaskSigner);
       await (
-        await transfer.safeTransferFrom(account, addressTo, tokenId)
+        await contract.transferNft(account, addressTo, tokenId)
       ).wait();
     } catch (error) {
       console.log(error);
@@ -56,7 +56,7 @@ const NftPage = (props) => {
           feeAccount,
           nftdata?.owner,
           account,
-          { value: nftdata?.token_quote_rate_eth }
+          { value: ethers.utils.formatEther(nftdata?.token_price_wei) }
         )
       ).wait();
     } catch (error) {
@@ -93,7 +93,13 @@ const NftPage = (props) => {
           {nftdata?.owner === account ? (
             <>
               <Button onClick={() => setshow(true)}>Transfer Nft</Button>
-              <TransferModal show={show} account={account} tokenId={tokenId} callTransfer={callTransfer} setshow={setshow} />
+              <TransferModal
+                show={show}
+                account={account}
+                tokenId={tokenId}
+                callTransfer={callTransfer}
+                setshow={setshow}
+              />
             </>
           ) : (
             <Button
@@ -153,6 +159,7 @@ const NftPage = (props) => {
           <table className="nft-table">
             {nftdata?.external_data?.attributes ? (
               <>
+                
                 <strong style={{ marginTop: "10px" }}>Attributes</strong>
                 {nftdata.external_data.attributes.map((o, i) => {
                   return (

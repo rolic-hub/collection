@@ -62,7 +62,7 @@ const CollectionView = (props) => {
   useEffect(() => {
     getData();
     makeRequest();
-  });
+  }, []);
   return (
     <div className="collection-background">
       <br />
