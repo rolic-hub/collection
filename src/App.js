@@ -69,14 +69,13 @@ function App() {
   const uauth = new UAuth({
     clientID: "0bfe1e7223d44a8c80c6c30dfe52d12b",
     redirectUri: "https://collection-kappa.vercel.app/callback",
-    scope: "openid wallet email ",
+    scope: "openid email wallet ",
   });
  
 
   const unsLogin = async () => {
-    try {
        setConnect(false);
-      const authorization = await uauth.loginWithPopup();
+       const authorization = await uauth.loginWithPopup();
       const accounts = await authorization.idToken.address;
       
       const provider = new ethers.providers.Web3Provider(ethereum);
@@ -88,11 +87,7 @@ function App() {
      
 
       loadContract(signer);
-    } catch (error) {
-      console.log(error);
-      setShow(true);
-      <ToastComp show={show} setShow={setShow} message={error} />;
-    }
+   
   };
 
   const loadContract = (signer) => {
