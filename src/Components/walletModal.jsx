@@ -37,49 +37,7 @@ const WalletModal = ({
         </Modal.Header>
         <Modal.Body>
           <div>
-            <>
-              <strong style={{ marginTop: "-50px" }}>
-                This project is currently configured for Testnet
-              </strong>
-              <br />
-              <div>
-                <Button onClick={web3handler} style={{ margin: "5px" }}>
-                  <img
-                    style={{ marginRight: "10px" }}
-                    height="20px"
-                    width="20px"
-                    src={metamask}
-                    alt="metamask"
-                  />{" "}
-                  Login with Metamask
-                </Button>
-              </div>
-              <div>
-                <Button onClick={() => walletC()} style={{ margin: "5px" }}>
-                  <img
-                    style={{ marginRight: "10px" }}
-                    height="40px"
-                    width="20px"
-                    src={WalletConnect}
-                    alt="wallet-connect"
-                  />{" "}
-                  Login with WalletConnect
-                </Button>
-              </div>
-              <div>
-                <Button onClick={() => unsLogin()} style={{ margin: "5px" }}>
-                  <img
-                    style={{ marginRight: "10px" }}
-                    height="40px"
-                    width="20px"
-                    src={unsdomain}
-                    alt="unstoppable-domain"
-                  />{" "}
-                  Unstoppable Domain
-                </Button>
-              </div>
-            </>
-            {/* <Card>
+            <Card>
               <ListGroup variant="flush" >
                 <ListGroup.Item>
                   <div onClick={web3handler}>
@@ -105,7 +63,7 @@ const WalletModal = ({
                 </ListGroup.Item>
                 <ListGroup.Item autoFocus= "false">
                   {" "}
-                  <button onClick={unsLogin}>
+                  <div onClick={() => unsLogin()}>
                     <img
                       src={unsdomain}
                       alt="unstopabble domain"
@@ -113,10 +71,10 @@ const WalletModal = ({
                       style={{ marginLeft: "40px", marginRight: "45px" }}
                     />
                     <strong>Login with Unstoppable Domain</strong>
-                  </button>
+                  </div>
                 </ListGroup.Item>
               </ListGroup>
-            </Card> */}
+            </Card>
           </div>
         </Modal.Body>
         <Modal.Footer>
