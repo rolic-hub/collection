@@ -48,6 +48,7 @@ function App() {
     });
     //  Enable session (triggers QR Code modal)
     try {
+      setConnect(false);
       await provider.enable();
       await provider.request({ payload: "eth_requestAccounts" });
 
@@ -57,7 +58,7 @@ function App() {
       const accounts = Wsigner.getAddress();
       setAccount(localStorage.setItem("account", accounts));
 
-      setConnect(false);
+    
       setMaskSigner(Wsigner);
       loadContract(Wsigner);
     } catch (error) {
@@ -78,9 +79,10 @@ function App() {
 
   const unsLogin = async () => {
     try {
+       setConnect(false);
       const authorization = await uauth.loginWithPopup();
       const accounts = authorization.idToken.address;
-       setConnect(false);
+      
       const provider = new ethers.providers.Web3Provider(ethereum);
 
       const signer = await provider.getSigner();
