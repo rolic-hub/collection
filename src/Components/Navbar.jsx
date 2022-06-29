@@ -10,6 +10,7 @@ const Navigation = ({
   unsLogin,
   connect,
   setConnect,
+  uauth
 }) => {
   const account = window.localStorage.getItem("account");
   return (
@@ -59,6 +60,7 @@ const Navigation = ({
               connect={connect}
               setConnect={setConnect}
               account={account}
+              uauth={uauth}
             />
           </Nav>
         </Navbar.Collapse>

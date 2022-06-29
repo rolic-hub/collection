@@ -24,8 +24,7 @@ function App() {
   const [account, setAccount] = useState(localStorage.getItem("account"));
   const [collection, setCollection] = useState();
   const [metamaskSigner, setMaskSigner] = useState();
-  const [user, setUser] = useState();
-  const [loading, setLoading] = useState(false);
+  
 
   const web3handler = async () => {
     const accounts = await ethereum.request({
@@ -67,10 +66,15 @@ function App() {
     }
   };
   const uauth = new UAuth({
-    clientID: "0bfe1e7223d44a8c80c6c30dfe52d12b",
-    scope: "openid email wallet",
+    clientID: "0bfe1e72-23d4-4a8c-80c6-c30dfe52d12b",
     redirectUri: "https://collection-kappa.vercel.app/callback",
+    scope: "openid wallet email:optional humanity_check:optional",
   });
+  // ({
+  //   clientID: "0bfe1e7223d44a8c80c6c30dfe52d12b",
+  //   scope: "openid email wallet",
+  //   redirectUri: "https://collection-kappa.vercel.app/callback",
+  // });
 
   const unsLogin = async () => {
     try {
@@ -102,13 +106,7 @@ function App() {
     setCollection(getCollectioncontract);
   };
 
-  useEffect(() => {
-    uauth
-      .user()
-      .then(setUser)
-      .catch(() => {})
-      .finally(() => setLoading(false));
-  }, []);
+  
 
   return (
     <div className="App">
@@ -119,6 +117,7 @@ function App() {
         connect={connect}
         setConnect={setConnect}
         account={account}
+        uauth={uauth}
       />
       <Routes>
         <Route
