@@ -38,8 +38,8 @@ const WalletModal = ({
         <Modal.Body>
           <div>
             <Card>
-              <ListGroup variant="flush">
-                <ListGroup.Item>
+             
+               
                   <button onClick={web3handler}>
                     <img
                       src={metamask}
@@ -49,10 +49,9 @@ const WalletModal = ({
                     />
                     <strong>Login with Metamask</strong>
                   </button>
-                </ListGroup.Item>
-                <ListGroup.Item>
+               
                   {" "}
-                  <button onClick={walletC}>
+                  <button onClick={() => walletC()}>
                     <img
                       src={WalletConnect}
                       alt="wallet-connect"
@@ -60,10 +59,9 @@ const WalletModal = ({
                     />
                     <strong>Login with Wallet Connect</strong>
                   </button>
-                </ListGroup.Item>
-                <ListGroup.Item>
+               
                   {" "}
-                  <button onClick={unsLogin}>
+                  <button onClick={() => unsLogin()}>
                     <img
                       src={unsdomain}
                       alt="unstopabble domain"
@@ -72,8 +70,7 @@ const WalletModal = ({
                     />
                     <strong>Login with Unstoppable Domain</strong>
                   </button>
-                </ListGroup.Item>
-              </ListGroup>
+               
             </Card>
           </div>
         </Modal.Body>
