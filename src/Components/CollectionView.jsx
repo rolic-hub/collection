@@ -153,7 +153,7 @@ const CollectionView = (props) => {
                 {imageBox.map((item, i) => (
                   <div className="nft">
                     <a href={`/nft/${address}/${item.tokenId}`}>
-                      <img src={item.image} alt={`Nft#${item.tokenId}`} />
+                      <img height="256px" src={item.image} alt={`Nft#${item.tokenId}`} />
                     </a>
                   </div>
                 ))}
