@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./Components/Home";
 import Create from "./Components/Create";
@@ -24,6 +24,8 @@ function App() {
   const [account, setAccount] = useState(localStorage.getItem("account"));
   const [collection, setCollection] = useState();
   const [metamaskSigner, setMaskSigner] = useState();
+  const [user, setUser] = useState();
+  const [loading, setLoading] = useState(false);
 
   const web3handler = async () => {
     const accounts = await ethereum.request({
@@ -47,48 +49,47 @@ function App() {
     });
     //  Enable session (triggers QR Code modal)
     try {
-     await provider.enable();
-    await provider.request({ payload: "eth_requestAccounts" });
+      await provider.enable();
+      await provider.request({ payload: "eth_requestAccounts" });
 
-    const web3Provider = new ethers.providers.Web3Provider(provider);
-    const Wsigner = web3Provider.getSigner();
+      const web3Provider = new ethers.providers.Web3Provider(provider);
+      const Wsigner = web3Provider.getSigner();
 
-    const accounts = Wsigner.getAddress();
-    setAccount(localStorage.setItem("account", accounts));
+      const accounts = Wsigner.getAddress();
+      setAccount(localStorage.setItem("account", accounts));
 
-    setConnect(false);
-    setMaskSigner(Wsigner);
-    loadContract(Wsigner); 
+      setConnect(false);
+      setMaskSigner(Wsigner);
+      loadContract(Wsigner);
     } catch (error) {
       setShow(true);
-      <ToastComp show={show} setShow={setShow} message={error}/>
+      <ToastComp show={show} setShow={setShow} message={error} />;
     }
-    
   };
+  const uauth = new UAuth({
+    clientID: "0bfe1e7223d44a8c80c6c30dfe52d12b",
+    scope: "openid email wallet",
+    redirectUri: "https://collection-kappa.vercel.app/callback",
+  });
 
   const unsLogin = async () => {
     try {
-      const uauth = new UAuth({
-        clientID: "0bfe1e7223d44a8c80c6c30dfe52d12b",
-        scope: "openid email wallet",
-        redirectUri: "https://collection-kappa.vercel.app/callback",
-      });
-
       const authorization = await uauth.loginWithPopup();
       const accounts = authorization.idToken.address;
+       setConnect(false);
       const provider = new ethers.providers.Web3Provider(ethereum);
 
       const signer = await provider.getSigner();
 
       setMaskSigner(signer);
       setAccount(localStorage.setItem("account", accounts));
-      setConnect(false);
+     
 
       loadContract(signer);
     } catch (error) {
       console.log(error);
-       setShow(true);
-       <ToastComp show={show} setShow={setShow} message={error} />;
+      setShow(true);
+      <ToastComp show={show} setShow={setShow} message={error} />;
     }
   };
 
@@ -100,6 +101,14 @@ function App() {
     );
     setCollection(getCollectioncontract);
   };
+
+  useEffect(() => {
+    uauth
+      .user()
+      .then(setUser)
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
 
   return (
     <div className="App">
@@ -119,7 +128,13 @@ function App() {
         <Route path="/create" element={<Create collection={collection} />} />
         <Route
           path="/collection/:address"
-          element={<CollectionView collection={collection} account={account} metamaskSigner={metamaskSigner} />}
+          element={
+            <CollectionView
+              collection={collection}
+              account={account}
+              metamaskSigner={metamaskSigner}
+            />
+          }
         />
         <Route
           path="/nft/:address/:tokenId"
