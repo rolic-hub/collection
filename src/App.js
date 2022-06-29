@@ -71,7 +71,7 @@ function App() {
       const uauth = new UAuth({
         clientID: "0bfe1e7223d44a8c80c6c30dfe52d12b",
         scope: "openid email wallet",
-        redirectUri: "https://localhost:3000/callback",
+        redirectUri: "https://collection-kappa.vercel.app/callback",
       });
 
       const authorization = await uauth.loginWithPopup();

@@ -12,15 +12,7 @@ const WalletModal = ({
   setConnect,
   account
 }) => {
-  // const showModal = () => {
-  //   if(account !== undefined || null) {
-  //     console.log(account)
-  //     setConnect(false);
-
-  //   }else{
-  //     setConnect(true)
-  //   }
-  // }
+ 
   return (
     <>
       <Modal
@@ -31,7 +23,7 @@ const WalletModal = ({
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title>Modal title</Modal.Title>
+          <Modal.Title>Login to Wallet</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div>
