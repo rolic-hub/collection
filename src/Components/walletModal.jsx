@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Button, Card, ListGroup } from "react-bootstrap";
 import metamask from "../assets/metamask.png";
 import unsdomain from "../assets/unsdomain.png";
@@ -11,7 +11,7 @@ const WalletModal = ({
   connect,
   setConnect,
   account,
-  uauth
+  uauth,
 }) => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState();
@@ -22,7 +22,7 @@ const WalletModal = ({
       .catch(() => {})
       .finally(() => setLoading(false));
   }, []);
- 
+
   return (
     <>
       <Modal
@@ -38,7 +38,7 @@ const WalletModal = ({
         <Modal.Body>
           <div>
             <Card>
-              <ListGroup variant="flush" >
+              <ListGroup variant="flush">
                 <ListGroup.Item>
                   <div onClick={web3handler}>
                     <img
@@ -61,7 +61,7 @@ const WalletModal = ({
                     <strong>Login with Wallet Connect</strong>
                   </div>
                 </ListGroup.Item>
-                <ListGroup.Item autoFocus= "false">
+                <ListGroup.Item>
                   {" "}
                   <div onClick={() => unsLogin()}>
                     <img
