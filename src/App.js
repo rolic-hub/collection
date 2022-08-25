@@ -67,8 +67,8 @@ function App() {
     }
   };
   const uauth = new UAuth({
-    clientID: "0bfe1e7223d44a8c80c6c30dfe52d12b",
-    redirectUri: "https://collection-kappa.vercel.app/callback",
+    clientID: "0bfe1e72-23d4-4a8c-80c6-c30dfe52d12b",
+    redirectUri: "https://collection-kappa.vercel.app",
     scope: "openid email wallet ",
   });
  
