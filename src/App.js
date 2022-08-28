@@ -20,7 +20,7 @@ function App() {
   const [connect, setConnect] = useState(true);
   const [show, setShow] = useState(false);
   const collectionaddress = "0x9f6A8494290670B0d6D22E82b965b384B4b6fdc2";
-
+  const [infoModal, setInfoModal] = useState(false);
   const [account, setAccount] = useState(localStorage.getItem("account"));
   const [collection, setCollection] = useState();
   const [metamaskSigner, setMaskSigner] = useState();
@@ -37,7 +37,7 @@ function App() {
     const signer = await provider.getSigner();
 
     setMaskSigner(signer);
-
+    setInfoModal(true);
     loadContract(signer);
   };
 
@@ -58,10 +58,11 @@ function App() {
       setAccount(localStorage.setItem("account", accounts));
 
       setMaskSigner(Wsigner);
+      setInfoModal(true);
       loadContract(Wsigner);
     } catch (error) {
       setShow(true);
-      <ToastComp show={show} setShow={setShow} message={error} />;
+      //<ToastComp show={show} setShow={setShow} message={error} />;
     }
   };
   const uauth = new UAuth({
@@ -71,7 +72,8 @@ function App() {
   });
 
   const unsLogin = async () => {
-    setConnect(false);
+    try{
+      setConnect(false);
     localStorage.removeItem("account");
     const authorization = await uauth.loginWithPopup();
     const accounts = await authorization.idToken.wallet_address;
@@ -79,8 +81,13 @@ function App() {
     const signer = await provider.getSigner();
     setMaskSigner(signer);
     setAccount(localStorage.setItem("account", accounts));
-
+    setInfoModal(true);
     loadContract(signer);
+    
+    }catch(error){
+      console.log(error)
+    }
+    
   };
 
   const loadContract = (signer) => {
