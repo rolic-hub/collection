@@ -28,10 +28,12 @@ const Home = (props) => {
     setResult(data);
    
   };
-  useEffect(() => {
-    getAllCollection();
-  });
-
+ useEffect(() => {
+    if (account !== null || account !== undefined) {
+      getAllCollection();
+    }
+  }, []);
+  
   return (
     <div className="flex justify-center">
       <Button style={{margin:"30px"}}>
