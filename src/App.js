@@ -75,16 +75,13 @@ function App() {
 
   const unsLogin = async () => {
        setConnect(false);
+     localStorage.removeItem("account")
        const authorization = await uauth.loginWithPopup();
-      const accounts = await authorization.idToken.address;
-      
+      const accounts = await authorization.idToken.wallet_address;
       const provider = new ethers.providers.Web3Provider(ethereum);
-
       const signer = await provider.getSigner();
-
       setMaskSigner(signer);
-      setAccount(localStorage.setItem("account", accounts));
-     
+      setAccount(localStorage.setItem("account", accounts))     
 
       loadContract(signer);
    
