@@ -13,6 +13,8 @@ import NftPage from "./Components/nftPage";
 
 import MyNfts from "./Components/myNfts";
 import ToastComp from "./Components/toast";
+import { Modal } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 const { ethereum } = window;
 
