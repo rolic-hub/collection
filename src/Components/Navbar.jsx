@@ -24,7 +24,7 @@ const Navigation = ({
             className=""
             alt=""
           />
-          &nbsp; D-NFT Marketplace
+          &nbsp; Collectors Marketplace
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">

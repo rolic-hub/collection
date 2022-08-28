@@ -24,7 +24,6 @@ function App() {
   const [account, setAccount] = useState(localStorage.getItem("account"));
   const [collection, setCollection] = useState();
   const [metamaskSigner, setMaskSigner] = useState();
-  
 
   const web3handler = async () => {
     const accounts = await ethereum.request({
@@ -58,7 +57,6 @@ function App() {
       const accounts = Wsigner.getAddress();
       setAccount(localStorage.setItem("account", accounts));
 
-    
       setMaskSigner(Wsigner);
       loadContract(Wsigner);
     } catch (error) {
@@ -71,20 +69,18 @@ function App() {
     redirectUri: "https://collection-kappa.vercel.app",
     scope: "openid email wallet ",
   });
- 
 
   const unsLogin = async () => {
-       setConnect(false);
-     localStorage.removeItem("account")
-       const authorization = await uauth.loginWithPopup();
-      const accounts = await authorization.idToken.wallet_address;
-      const provider = new ethers.providers.Web3Provider(ethereum);
-      const signer = await provider.getSigner();
-      setMaskSigner(signer);
-      setAccount(localStorage.setItem("account", accounts))     
+    setConnect(false);
+    localStorage.removeItem("account");
+    const authorization = await uauth.loginWithPopup();
+    const accounts = await authorization.idToken.wallet_address;
+    const provider = new ethers.providers.Web3Provider(ethereum);
+    const signer = await provider.getSigner();
+    setMaskSigner(signer);
+    setAccount(localStorage.setItem("account", accounts));
 
-      loadContract(signer);
-   
+    loadContract(signer);
   };
 
   const loadContract = (signer) => {
@@ -95,8 +91,6 @@ function App() {
     );
     setCollection(getCollectioncontract);
   };
-
-  
 
   return (
     <div className="App">
@@ -136,6 +130,49 @@ function App() {
           element={<MyNfts account={account} collection={collection} />}
         />
       </Routes>
+      <Modal
+        show={infoModal}
+        onHide={() => infoModal(false)}
+        backdrop="static"
+        keyboard={false}
+        centered
+      >
+        <Modal.Header>
+          <Modal.Title style={{ marginLeft: "100px" }}>
+            About Collectors
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div style={{ marginBottom: "5px", padding: "10px" }}>
+            <strong style={{ marginTop: "10px", fontSize: "20px" }}>
+              Welcome to Collectors
+            </strong>
+            <p style={{ marginTop: "20px", fontSize: "20px" }}>
+              Collectors is a user first Nft Marketplace where users can:
+              <br></br>- Create nft's
+              <br></br>- Buy Nft's
+              <br></br>- Sell created nft's
+            </p>
+            <hr></hr>
+            <p style={{ fontSize: "20px", marginTop: "10px" }}>
+              {" "}
+              check out the homepage to view listed collections or tap on the
+              create new collection button to deploy your own unique Nft
+              collection{" "}
+            </p>
+            <Button
+              style={{
+                padding: "3px",
+                fontSize: "20px",
+                marginLeft: "150px",
+              }}
+              onClick={() => setInfoModal(false)}
+            >
+              Close
+            </Button>
+          </div>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 }

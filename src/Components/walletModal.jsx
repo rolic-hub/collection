@@ -32,37 +32,39 @@ const WalletModal = ({
         <Modal.Body>
           <div>
             <Card>
-                  <button onClick={web3handler}>
-                    <img
-                      src={metamask}
-                      alt="Metamask"
-                      height="100px"
-                      style={{ marginLeft: "40px", marginRight: "45px" }}
-                    />
-                    <strong>Login with Metamask</strong>
-                  </button>
-               
-                  {" "}
-                  <button onClick={() => walletC()}>
-                    <img
-                      src={WalletConnect}
-                      alt="wallet-connect"
-                      height="100px"
-                    />
-                    <strong>Login with Wallet Connect</strong>
-                  </button>
-               
-                  {" "}
-                  <button onClick={() => unsLogin()}>
-                    <img
-                      src={unsdomain}
-                      alt="unstopabble domain"
-                      height="100px"
-                      style={{ marginLeft: "40px", marginRight: "45px" }}
-                    />
-                    <strong>Login with Unstoppable Domain</strong>
-                  </button>
-               
+              <button style={{ padding: "5px" }} onClick={web3handler}>
+                <img
+                  src={metamask}
+                  alt="Metamask"
+                  height="50px"
+                  style={{ marginLeft: "-150px" }}
+                />
+                <strong style={{ marginLeft: "30px" }}>
+                  Login with Metamask
+                </strong>
+              </button>{" "}
+              <button style={{ padding: "5px" }} onClick={walletC}>
+                <img
+                  src={WalletConnect}
+                  alt="wallet-connect"
+                  height="50px"
+                  style={{ marginLeft: "-100px" }}
+                />
+                <strong style={{ marginLeft: "30px" }}>
+                  Login with Wallet Connect
+                </strong>
+              </button>{" "}
+              <button style={{ padding: "5px" }} onClick={unsLogin}>
+                <img
+                  src={unsdomain}
+                  alt="unstopabble domain"
+                  height="50px"
+                  style={{ marginLeft: "-70px" }}
+                />
+                <strong style={{ marginLeft: "30px" }}>
+                  Login with Unstoppable Domain
+                </strong>
+              </button>
             </Card>
           </div>
         </Modal.Body>
