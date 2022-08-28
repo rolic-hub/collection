@@ -15,13 +15,7 @@ const WalletModal = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState();
-  useEffect(() => {
-    uauth
-      .user()
-      .then(setUser)
-      .catch(() => {})
-      .finally(() => setLoading(false));
-  }, []);
+  
 
   return (
     <>
@@ -38,8 +32,6 @@ const WalletModal = ({
         <Modal.Body>
           <div>
             <Card>
-             
-               
                   <button onClick={web3handler}>
                     <img
                       src={metamask}
