@@ -10,7 +10,7 @@
 
 # project Name - Collectors Marketplace
 # link to working code - https://collection-kappa.vercel.app
-# demo video of integration- 
+# demo video of integration - https://ipfs.io/ipfs/bafybeigxv5gv6kgixrjpeylgipn6rmxiuxr56ijbdq64rx42v4i2fgmram
 # person of contact - frolicbit@proton.me
 # Discord id - hezze#2173
 # Unstoppable domain email address - frolicbit@proton.me
